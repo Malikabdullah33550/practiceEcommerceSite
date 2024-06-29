@@ -11,7 +11,7 @@ authRouter.get("/login", (req, res) => {
 authRouter.post("/newregistration", async (req, res) => {
   const newUser = User(req.body);
   await newUser.save();
-  res.send(newUser);
+  res.json({ success: true, user: newUser });
 });
 
 module.exports = authRouter;

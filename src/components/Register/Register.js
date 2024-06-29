@@ -31,10 +31,12 @@ const Register = () => {
   // };
   const sendNewUserData = async (userData) => {
     const newUser = { ...userData, type: "customer" };
+    console.log("user data: ", newUser);
 
     try {
       const response = await axios.post("/auth/newregistration", newUser);
-      console.log("User data sent successfully:", response.data); // Log after successful response
+      console.log("User data sent successfully:", response.data.user); // Log after successful response
+      console.log(response.data.user);
     } catch (error) {
       console.error("Error sending user data:", error.response.data); // Log error details
     } finally {
@@ -130,7 +132,7 @@ const Register = () => {
                     type="text"
                     id="FirstName"
                     {...register("firstName", { required: true })}
-                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
+                    className="mt-1 w-full rounded-md border border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>
 
@@ -146,7 +148,7 @@ const Register = () => {
                     type="text"
                     id="LastName"
                     {...register("lastName", { required: true })}
-                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
+                    className="mt-1 w-full rounded-md border border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>
 
@@ -163,7 +165,7 @@ const Register = () => {
                     type="email"
                     id="Email"
                     {...register("email", { required: true })}
-                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
+                    className="mt-1 w-full rounded-md border border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>
 
@@ -180,7 +182,7 @@ const Register = () => {
                     type="password"
                     id="Password"
                     {...register("password", { required: true })}
-                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
+                    className="mt-1 w-full rounded-md border border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>
 
@@ -195,7 +197,7 @@ const Register = () => {
                   <input
                     type="password"
                     id="PasswordConfirmation"
-                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
+                    className="mt-1 w-full rounded-md border border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>
 
@@ -204,7 +206,7 @@ const Register = () => {
                     <input
                       type="checkbox"
                       id="MarketingAccept"
-                      className="size-5 rounded-md border-gray-200 bg-white shadow-sm"
+                      className="size-5 rounded-md border border-gray-200 bg-white shadow-sm"
                     />
 
                     <span className="text-sm text-gray-700">
