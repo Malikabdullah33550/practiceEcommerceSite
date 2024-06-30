@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const UpdateUser = () => {
+    const loggedInUserData = useSelector((store) => {
+      return store.UserSlice;
+    });
+    const userDetails = loggedInUserData.loggedInDetails;
+    console.log(userDetails);
+    return userDetails;
+  };
+
   return (
     <div>
       <header className="bg-white">
@@ -88,26 +98,47 @@ const Header = () => {
                   </li>
                 </ul>
               </nav>
+              {
+                (useEffect = () => {
+                  const updateUser1 = UpdateUser();
+                  if (updateUser1 != null) {
+                    return (
+                      <div className="sm:flex sm:gap-4">
+                        <div className="hidden sm:flex">
+                          <Link
+                            className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+                            to="/Register"
+                          >
+                            LogOut
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div className="sm:flex sm:gap-4">
+                        <Link
+                          className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
+                          to="/Login"
+                        >
+                          Login
+                        </Link>
+
+                        <div className="hidden sm:flex">
+                          <Link
+                            className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+                            to="/Register"
+                          >
+                            Register
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  }
+                })
+              }
 
               <div className="flex items-center gap-4">
-                <div className="sm:flex sm:gap-4">
-                  <Link
-                    className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-                    to="/Login"
-                  >
-                    Login
-                  </Link>
-
-                  <div className="hidden sm:flex">
-                    <Link
-                      className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
-                      to="/Register"
-                    >
-                      Register
-                    </Link>
-                  </div>
-                </div>
-
                 <div className="block md:hidden">
                   <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
                     <svg

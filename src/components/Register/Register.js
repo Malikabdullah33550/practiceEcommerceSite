@@ -1,53 +1,42 @@
 import axios from "axios";
 // import { response } from "express";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { BASE_API_URL } from "../../APi.Config";
 
 const Register = () => {
-  console.log("123");
   const { register, handleSubmit, reset } = useForm();
   const move = useNavigate();
-  // const sendNewUserData = async (userData) => {
-  //   const newUser = { ...userData, type: "customer" };
-  //   await axios.post("/auth/newRegistration", newUser).then((res) => {
-  //     console.log(res.data);
-  //   });
-  //   console.log(userData);
-  //   reset();
-  // };
-  // const sendNewUserData = async (userData) => {
-  //   const newUser = { ...userData, type: "customer" };
-  //   try {
-  //     const response = await axios.post("/auth/newregistration", newUser);
-  //     console.log("User data sent successfully:", response.data);
-  //   } catch (error) {
-  //     console.error("Error sending user data:", error.response.data);
-  //   } finally {
-  //     console.log(userData);
-  //     reset();
-  //     move("/");
-  //   }
-  // };
-  const sendNewUserData = async (userData) => {
-    const newUser = { ...userData, type: "customer" };
-    console.log("user data: ", newUser);
+  // const [data1, setData1] = useState(null);
 
+  const sendNewUserData = async (userData) => {
     try {
-      const response = await axios.post("/auth/newregistration", newUser);
-      console.log("User data sent successfully:", response.data.user); // Log after successful response
-      console.log(response.data.user);
+      const newUser = { ...userData, type: "customer" };
+      const response = await axios.post(
+        `${BASE_API_URL}/auth/newregistration`,
+        newUser
+      );
+      console.log("Response data:", response.data.success);
+      // setData1(response.data.user);
+      console.log(response.data.user, "response from api happy coding ");
     } catch (error) {
-      console.error("Error sending user data:", error.response.data); // Log error details
-    } finally {
-      console.log(userData); // Optional: Log original data
-      reset();
-      // move("/");
+      if (error.response) {
+      } else if (error.request) {
+        console.error("Error request:", error.request);
+      } else {
+        console.error("Error message:", error.message);
+      }
+      console.error("Error config:", error.config);
     }
+    move("/Login");
   };
 
   return (
     <div>
+      {/* <div id="data">
+        {data1 ? <>{JSON.stringify(data1)}</> : <>data nahi aaya</>}
+      </div> */}
       <section className="bg-white">
         <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
           <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">

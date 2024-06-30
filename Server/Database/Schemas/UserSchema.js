@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const userSchema = mongoose.Schema({
   firstName: {
     type: String,
-    required: true,
     lowercase: true,
+    required: true,
   },
   lastName: {
     type: String,

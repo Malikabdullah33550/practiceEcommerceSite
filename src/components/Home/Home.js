@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const loggedInUserData = useSelector((store) => {
+    return store.UserSlice;
+  });
   return (
     <div>
       <section className="mx-auto max-w-screen-xl overflow-hidden rounded-lg shadow-2xl md:grid md:grid-cols-3">
@@ -34,7 +38,7 @@ const Home = () => {
           </a>
 
           <p className="mt-8 text-xs font-medium uppercase text-gray-400">
-            Offer valid until 24th March, 2021 *
+            Offer valid until 24th March, 2025 *
           </p>
         </div>
       </section>

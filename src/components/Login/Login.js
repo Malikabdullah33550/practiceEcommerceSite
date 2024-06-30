@@ -1,16 +1,30 @@
+import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { BASE_API_URL } from "../../APi.Config";
+import { useDispatch } from "react-redux";
+import { updateLoginStatus } from "../../Store/Slices/UserSlice/UserSlice";
 
 const Login = () => {
+  const move = useNavigate();
+  const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm();
+  const checkUserLogin = async (userLoginData) => {
+    await axios
+      .post(`${BASE_API_URL}/auth/checkLogin`, userLoginData)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.success == true) {
+          dispatch(updateLoginStatus(res.data));
+          move("/");
+        } else {
+          alert("Please enter valid Credentials or Create a new Account");
+        }
+      });
+  };
   return (
     <div>
-      {/*
-  Heads up! 👋
-
-  Plugins:
-    - @tailwindcss/forms
-*/}
-
       <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-lg">
           <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
@@ -23,6 +37,7 @@ const Login = () => {
           </p>
 
           <form
+            onSubmit={handleSubmit(checkUserLogin)}
             action="#"
             className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
           >
@@ -38,6 +53,7 @@ const Login = () => {
               <div className="relative">
                 <input
                   type="email"
+                  {...register("email", { required: true })}
                   className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Enter email"
                 />
@@ -69,6 +85,7 @@ const Login = () => {
               <div className="relative">
                 <input
                   type="password"
+                  {...register("password", { required: true })}
                   className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Enter password"
                 />
